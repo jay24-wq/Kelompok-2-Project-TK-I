@@ -73,3 +73,35 @@ public class Toko {
         return produkList;
     }
 }
+public void tambahKategori(String namaKategori) throws SQLException {
+        String sql = "INSERT INTO tabel_kategori (nama_kategori) VALUES (?)";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, namaKategori);
+            pstmt.executeUpdate();
+            System.out.println("BERHASIL: Kategori " + namaKategori + " ditambahkan.");
+        }
+    }
+    
+    public void updateKategori(Kategori k) throws SQLException {
+        String sql = "UPDATE tabel_kategori SET nama_kategori = ? WHERE id_kategori = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, k.getNamaKategori());
+            pstmt.setInt(2, k.getIdKategori());
+            pstmt.executeUpdate();
+            System.out.println("BERHASIL: Kategori ID " + k.getIdKategori() + " diperbarui.");
+        }
+    }
+    
+    public void deleteKategori(int idKategori) throws SQLException {
+        String sql = "DELETE FROM tabel_kategori WHERE id_kategori = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, idKategori);
+            pstmt.executeUpdate();
+            System.out.println("BERHASIL: Kategori ID " + idKategori + " dihapus.");
+        }
+    }
