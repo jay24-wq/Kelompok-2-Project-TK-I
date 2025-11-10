@@ -106,4 +106,35 @@ public class Toko {
         }
     }
 
+    public void setRelasiProdukKategori(int idProduk, List<Integer> idKategoriList) throws SQLException {
+        System.out.println("\n--- Mengatur Relasi untuk Produk ID: " + idProduk + " ---");
+        
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            conn.setAutoCommit(false); 
+
+            String sqlDelete = "DELETE FROM tabel_produk_kategori WHERE id_produk_fk = ?";
+            try (PreparedStatement pstmtDelete = conn.prepareStatement(sqlDelete)) {
+                pstmtDelete.setInt(1, idProduk);
+                pstmtDelete.executeUpdate();
+                System.out.println("Relasi lama dihapus.");
+            }
+
+            if (!idKategoriList.isEmpty()) {
+                 String sqlInsert = "INSERT INTO tabel_produk_kategori (id_produk_fk, id_kategori_fk) VALUES (?, ?)";
+                 try (PreparedStatement pstmtInsert = conn.prepareStatement(sqlInsert)) {
+                     for (int idKategori : idKategoriList) {
+                         pstmtInsert.setInt(1, idProduk);  
+                         pstmtInsert.setInt(2, idKategori); 
+                         pstmtInsert.executeUpdate();
+                     }
+                 }
+            } 
+
+            conn.commit(); 
+            System.out.println("BERHASIL: Relasi disimpan (" + idKategoriList.size() + " kategori terhubung).");
+        } catch (SQLException e) {
+            System.err.println("GAGAL: Gagal mengatur relasi. Melakukan Rollback.");
+            throw e; 
+        }
+    }
 }
