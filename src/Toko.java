@@ -72,8 +72,8 @@ public class Toko {
         }
         return produkList;
     }
-}
-public void tambahKategori(String namaKategori) throws SQLException {
+    
+    public void tambahKategori(String namaKategori) throws SQLException {
         String sql = "INSERT INTO tabel_kategori (nama_kategori) VALUES (?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -105,3 +105,5 @@ public void tambahKategori(String namaKategori) throws SQLException {
             System.out.println("BERHASIL: Kategori ID " + idKategori + " dihapus.");
         }
     }
+
+}
