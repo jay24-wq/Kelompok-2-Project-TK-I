@@ -3,7 +3,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/db_toko_pbo";
+    private static final String URL = "jdbc:mysql://localhost:3306/simple_store";
     private static final String USER = /* "Username" */; 
     private static final String PASSWORD = /* "Password" */; 
     
@@ -20,3 +20,4 @@ public class DatabaseConnection {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }
+
