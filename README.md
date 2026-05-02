@@ -1,0 +1,1 @@
+Lakukan import folder ini di NetBeans karena menggunakan swing dan lakukan import database, Lalu ubah file database connection sesuai dengan connection masing masing, tambahkan library MySQL connector di NetBeans, terakhir jalankan Main.java
